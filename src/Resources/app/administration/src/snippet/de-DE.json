@@ -1,0 +1,22 @@
+{
+    "teamblau-cms": {
+        "block": {
+            "crystalCmsWidget": {
+                "label": "Crystal Design Cms Widget"
+            }
+        },
+        "elements": {
+            "productConfigurator": {
+                "label": "Produkt Detail Konfigurator",
+                "identifier": "Identifier",
+                "type": "Type"
+            },
+            "crystalCmsWidget": {
+                    "label": "Crystal Design Cms Widget",
+                    "identifier": "Identifier",
+                    "type": "Type",
+                    "parameters": "Parameters (Format: json)"
+            }
+        }
+    }
+}

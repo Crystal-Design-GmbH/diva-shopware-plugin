@@ -1,0 +1,7 @@
+{% sw_extends '@Storefront/storefront/component/buy-widget/buy-widget.html.twig' %}
+
+{% block buy_widget_ordernumber_container %}
+    {{ parent() }}
+
+    {% sw_include '@TeamblauCrystalDesignConfiguratorIntegration/storefront/component/teamblau/tb-buy-widget-configurator.html.twig' %}
+{% endblock %}

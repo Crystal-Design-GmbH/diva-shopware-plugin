@@ -1,0 +1,9 @@
+{% sw_extends '@Storefront/storefront/block/cms-block-gallery-buybox.html.twig' %}
+
+{% block block_gallery_buybox_column_left_inner %}
+    {% if page.product.customFields['diva_product'] == true && page.product.customFields['diva_product_id'] %}
+        {% sw_include '@TeamblauCrystalDesignConfiguratorIntegration/storefront/component/teamblau/tb-product-detail-media-configurator.html.twig' %}
+    {% else %}
+        {{ parent() }}
+    {% endif %}
+{% endblock %}

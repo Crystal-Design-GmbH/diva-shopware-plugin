@@ -1,0 +1,17 @@
+{% block sw_cms_element_config_crystal_cms_widget %}
+    <div class="sw-cms-el-config-crystal-cms-widget">
+        <sw-text-field type="text"
+                        :label="$tc('teamblau-cms.elements.crystalCmsWidget.identifier')"
+                        v-model="element.config.identifier.value">
+        </sw-text-field>
+        <sw-text-field type="text"
+                        :label="$tc('teamblau-cms.elements.crystalCmsWidget.type')"
+                        required="true"
+                        v-model="element.config.type.value">
+        </sw-text-field>
+        <sw-text-field type="json"
+                        :label="$tc('teamblau-cms.elements.crystalCmsWidget.parameters')"
+                        v-model="element.config.parameters.value">
+        </sw-text-field>
+    </div>
+{% endblock %}

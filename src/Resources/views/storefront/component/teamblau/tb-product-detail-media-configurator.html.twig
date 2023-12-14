@@ -1,0 +1,22 @@
+{% block element_product_detail_configurator %}
+    {% set salesChannelCustomFields = context.salesChannel.customFields %}
+    {% set organizationId = salesChannelCustomFields.diva_organization_id %}
+    {% set identifier = salesChannelCustomFields.diva_idenitifier %}
+    {% set defaultApiConfig = salesChannelCustomFields.diva_default_api_config %}
+
+    {% set isoCode = page.header.activeLanguage.translationCode.code|lower|split('-') %}
+    {% set language = isoCode[0] %}
+
+    {% block element_product_detail_configurator_content %}
+        <div id="framework"
+            class="cms-element-product-detail-configurator" 
+            style="width: 100%; height: 700px"
+            data-tb-product-detail-configurator
+            data-organization-id = {{ organizationId }}
+            data-identifier = {{ identifier }}
+            {% if defaultApiConfig != null %}data-defaultapiconfig = '{"baseUrl":"{{ defaultApiConfig }}"}'{% endif %}
+            data-language = {{ language }}
+            data-diva-product-id = {{ page.product.customFields['diva_product_id'] }}>
+        </div>
+    {% endblock %}
+{% endblock %}

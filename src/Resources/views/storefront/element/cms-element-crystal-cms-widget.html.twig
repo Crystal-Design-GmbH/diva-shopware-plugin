@@ -1,0 +1,23 @@
+{% block element_crystal_cms_widget %}
+    {% set salesChannelCustomFields = context.salesChannel.customFields %}
+    {% set organizationId = salesChannelCustomFields.crystal_design_organization_id %}
+    {% set identifier = salesChannelCustomFields.crystal_design_idenitifier %}
+
+    {% set isoCode = page.header.activeLanguage.translationCode.code|lower|split('-') %}
+    {% set language = isoCode[0] %}
+    {% set type = element.config.type['value'] %}
+    {% set parameters = element.config.parameters['value'] %}
+    {% set defaultApiConfg = element.config.defaultApiConfg['value'] %}
+
+    <div id="framework" 
+        class="cms-element-crystal-cms-widget" 
+        style="width: 500px; height: 500px">
+        <diva-framework
+            organizationid = {{ organizationId }}
+            {% if identifier != null %}identifier = {{ identifier }}{% endif %}
+            {% if defaultApiConfg != null %}defaultapiconfig='{{ defaultApiConfg }}'{% endif %}
+            language = {{ language }}
+            currentcomponent='{"type":"{{ type }}",{% if parameters != null %}"parameters":{{ parameters }}{% endif %}}'>
+        </diva-framework>
+    </div>
+{% endblock %}

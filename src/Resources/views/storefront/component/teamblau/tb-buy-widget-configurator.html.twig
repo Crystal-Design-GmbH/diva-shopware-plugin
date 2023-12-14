@@ -1,0 +1,27 @@
+{% block tb_buy_widget_configurator %}
+    {% set salesChannelCustomFields = context.salesChannel.customFields %}
+
+    {% set organizationId = salesChannelCustomFields.crystal_design_organization_id %}
+    {% set identifier = salesChannelCustomFields.crystal_design_idenitifier %}
+
+    {% set isoCode = page.header.activeLanguage.translationCode.code|lower|split('-') %}
+    {% set language = isoCode[0] %}
+
+    {% if page.product.parentId != null%}
+        {% set productNumberArray = page.product.productNumber|split('.') %}
+        {% set productNumber = productNumberArray[0] %}
+    {% else %}
+        {% set productNumber = page.product.productNumber %}
+    {% endif %}
+
+    {% if page.product.customFields['diva_product'] == true %}
+        {% block tb_buy_widget_configurator_button %}
+            <button id="openConfig"
+                    class="btn btn-light">
+                    {% block tb_buy_widget_configurator_button_text %}
+                        {{ 'tb.product-detail.open-configurator' | trans }}
+                    {% endblock %}
+            </button>
+        {% endblock %}
+    {% endif %}
+{% endblock %}

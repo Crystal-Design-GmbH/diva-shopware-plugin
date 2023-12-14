@@ -1,0 +1,8 @@
+{% block block_crystal_cms_widget %}
+    {% block block_crystal_cms_widget_main %}
+        <div class="col-12">
+            {% set element = block.slots.getSlot('main') %}
+            {% sw_include "@TeamblauCrystalDesignConfiguratorIntegration/storefront/element/cms-element-" ~ element.type ~ ".html.twig" ignore missing %}
+        </div>
+    {% endblock %}
+{% endblock %}

@@ -1,0 +1,31 @@
+{
+  "name": "teamblau/teamblau-crystal-design-configurator-integration",
+  "description": "Teamblau Crystal Design Configurator Integration",
+  "version": "v1.0.0",
+  "type": "shopware-platform-plugin",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "teamblau gmbh"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Teamblau\\TeamblauCrystalDesignConfiguratorIntegration\\": "src/"
+    }
+  },
+  "extra": {
+    "shopware-plugin-class": "Teamblau\\TeamblauCrystalDesignConfiguratorIntegration\\TeamblauCrystalDesignConfiguratorIntegration",
+    "copyright": "(c) by teamblau.com",
+    "label": {
+      "de-DE": "Teamblau Crystal Design Configurator Integration",
+      "en-GB": "Teamblau Crystal Design Configurator Integration",
+      "it-IT": "Teamblau Crystal Design Configurator Integration"
+    },
+    "description": {
+      "de-DE": "Teamblau Crystal Design Configurator Integration",
+      "en-GB": "Teamblau Crystal Design Configurator Integration",
+      "it-IT": "Teamblau Crystal Design Configurator Integration"
+    }
+  }
+}

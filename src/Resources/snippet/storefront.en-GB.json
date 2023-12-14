@@ -1,0 +1,12 @@
+{
+    "tb": {
+        "product-detail": {
+            "open-configurator": "Open Configurator"
+        },
+        "checkout": {
+            "edit-diva-product": "Edit",
+            "diva-nr": "Diva Nr.",
+            "pdf-details": "Details for configuration"
+        }
+    }
+}

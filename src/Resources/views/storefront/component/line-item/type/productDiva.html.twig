@@ -1,0 +1,187 @@
+{% set label = lineItem.label|trans|sw_sanitize %}
+{% set label = label !== '' ? label : lineItem.label %}
+
+{% if displayMode is not defined %}
+    {% set displayMode = 'default' %}
+{% endif %}
+
+{% if showRemoveButton is not defined %}
+    {% set showRemoveButton = true %}
+{% endif %}
+
+{% set lineItemClasses = 'line-item line-item-' ~ lineItem.type ~ ' is-' ~ displayMode %}
+
+{% if displayMode === 'offcanvas' %}
+    {% set lineItemClasses = lineItemClasses ~ ' js-cart-item' %}
+{% endif %}
+
+{% if not showRemoveButton %}
+    {% set lineItemClasses = lineItemClasses ~ ' no-remove-button' %}
+{% endif %}
+
+{% block component_line_item_type_product_diva %}
+    {% set salesChannelCustomFields = context.salesChannel.customFields %}
+    {% set organizationId = salesChannelCustomFields.crystal_design_organization_id %}
+    {% set identifier = salesChannelCustomFields.crystal_design_idenitifier %}
+
+    {% set isoCode = page.header.activeLanguage.translationCode.code|lower|split('-') %}
+    {% set language = isoCode[0] %}
+
+    <div class="{{ lineItemClasses }}">
+        <div class="row line-item-row">
+
+            {% block component_line_item_type_product_diva_col_info %}
+                <div class="line-item-info">
+                    <div class="row line-item-row">
+                        {% set showLineItemModal = controllerAction is same as('confirmPage') %}
+
+                        {% if nestingLevel < 1 %}
+                            {% block component_line_item_type_product_diva_image %}
+                                <div class="col-auto line-item-info-img">
+                                    <div class="line-item-img-container">
+                                        {% block component_line_item_type_product_diva_image_inner %}
+                                            {% if lineItem.payload['imageUrl'] %}
+                                                <img class="img-fluid line-item-img" src="{{ lineItem.payload['imageUrl'] }}" alt="{{ lineItem.label }}"/>
+                                            {% else %}
+                                                {# @deprecated tag:v6.6.0 - Boolean variable productLink will be removed, use lineItemLink and lineItemModalLink instead and pass the desired url as string #}
+                                                {% sw_include '@Storefront/storefront/component/line-item/element/image.html.twig' with {
+                                                    productLink: false
+                                                } %}
+                                            {% endif %}
+                                        {% endblock %}
+                                    </div>
+                                </div>
+                            {% endblock %}
+                        {% endif %}
+
+                        {% block component_line_item_type_product_diva_details %}
+                            <div class="line-item-details">
+                                <div class="line-item-details-container">
+                                    {% block component_line_item_type_product_diva_label %}
+                                        {# @deprecated tag:v6.6.0 - Boolean variable productLink will be removed, use lineItemLink and lineItemModalLink instead and pass the desired url as string #}
+                                        {% sw_include '@Storefront/storefront/component/line-item/element/label.html.twig' with {
+                                            productLink: false
+                                        } %}
+                                    {% endblock %}
+
+                                    {% if lineItem.payload.options is not empty %}
+                                        {% block component_line_item_type_product_diva_variant_characteristics %}
+                                            {% sw_include '@Storefront/storefront/component/line-item/element/variant-characteristics.html.twig' %}
+                                        {% endblock %}
+                                    {% endif %}
+
+                                    {% if lineItem.payload.features is not empty %}
+                                        {% block component_line_item_type_product_diva_features %}
+                                            {% sw_include '@Storefront/storefront/component/product/feature/list.html.twig' with {
+                                                'features': lineItem.payload.features
+                                            } %}
+                                        {% endblock %}
+                                    {% endif %}
+
+                                    {% if lineItem.payload.divaNr %}
+                                        {% block component_line_item_type_product_diva_order_number %}
+                                            <div class="line-item-ordernumber">
+                                                {{ "tb.checkout.diva-nr"|trans|sw_sanitize }} {{ lineItem.payload.divaNr }}
+                                            </div>
+                                        {% endblock %}
+                                    {% endif %}
+
+                                    {% if config('core.cart.showDeliveryTime') %}
+                                        {% block component_line_item_type_product_diva_delivery_date %}
+                                            {% sw_include '@Storefront/storefront/component/line-item/element/delivery-date.html.twig' %}
+                                        {% endblock %}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endblock %}
+                    </div>
+
+                    {% block component_line_item_type_product_diva_checkout %}
+                        {% if controllerAction|lower == 'cartpage' %}
+                            {% block component_line_item_type_product_diva_checkout_wrapper %}
+                                <div class="line-item-diva-configurator-content">
+                                    {% block component_line_item_type_product_diva_checkout_content %}
+                                        {% block component_line_item_type_product_diva_checkout_details %}
+                                            {% if lineItem.payload['pdfUrl'] %}
+                                                <div class="line-item-diva-pdf-link">
+                                                    <a href="{{ lineItem.payload['pdfUrl'] }}" target="_blank">
+                                                        {% block component_line_item_type_product_diva_checkout_details_link %}
+                                                            {{ 'tb.checkout.pdf-details' | trans }}
+                                                        {% endblock %}
+                                                    </a>
+                                                </div>
+                                            {% endif %}
+                                        {% endblock %}
+
+                                        {% block component_line_item_type_product_diva_checkout_configurator %}   
+                                            <div id="framework">
+                                                <button class="openConfiguratorBtn btn btn-light"
+                                                        data-tb-configurator-integration=""
+                                                        data-update-line-item = "true"
+                                                        data-quantity = {{ lineItem.quantity }}
+                                                        data-organization-id = {{ organizationId }}
+                                                        data-identifier = {{ identifier }}
+                                                        data-shop-language = {{ language }}
+                                                        data-diva-nr = {{ lineItem.payload['divaNrVersion'] }}>
+                                                        {% block component_line_item_type_product_diva_checkout_configurator_button %}
+                                                            {{ 'tb.checkout.edit-diva-product' | trans }}
+                                                        {% endblock %}
+                                                </button>
+                                            </div>
+                                        {% endblock %}
+                                    {% endblock %}
+                                </div>
+                            {% endblock %}
+                        {% endif %}
+                    {% endblock %}
+                </div>
+            {% endblock %}
+
+            {% block component_line_item_type_product_diva_col_quantity %}
+                <div class="line-item-quantity">
+                    {% sw_include '@Storefront/storefront/component/line-item/element/quantity.html.twig' %}
+                </div>
+            {% endblock %}
+
+            {% if showTaxPrice %}
+                {% block component_line_item_type_product_diva_col_tax_price %}
+                    <div class="line-item-tax-price">
+                        {% if context.salesChannel.taxCalculationType == 'horizontal' %}
+                            {% sw_include '@Storefront/storefront/component/line-item/element/tax-price.html.twig' %}
+                        {% endif %}
+                    </div>
+                {% endblock %}
+            {% else %}
+                {% block component_line_item_type_product_diva_col_unit_price %}
+                    <div class="line-item-unit-price{% if lineItem.quantity > 1 %} is-shown{% endif %}">
+                        {% sw_include '@Storefront/storefront/component/line-item/element/unit-price.html.twig' %}
+                    </div>
+                {% endblock %}
+            {% endif %}
+
+            {% block component_line_item_type_product_diva_col_total_price %}
+                <div class="line-item-total-price line-item-price">
+                    {% sw_include '@Storefront/storefront/component/line-item/element/total-price.html.twig' %}
+                </div>
+            {% endblock %}
+
+            {% if showRemoveButton %}
+                {% block component_line_item_type_product_diva_col_remove %}
+                    <div class="line-item-remove">
+                        {% if lineItem.removable and nestingLevel < 1 %}
+                            {% sw_include '@Storefront/storefront/component/line-item/element/remove.html.twig' %}
+                        {% endif %}
+                    </div>
+                {% endblock %}
+            {% endif %}
+        </div>
+
+        {% if displayMode === 'order' %}
+            {% block component_line_item_type_product_diva_downloads_table %}
+                <div class="order-detail-content-list">
+                    {% sw_include '@Storefront/storefront/component/line-item/element/downloads.html.twig' %}
+                </div>
+            {% endblock %}
+        {% endif %}
+    </div>
+{% endblock %}

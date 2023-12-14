@@ -1,0 +1,11 @@
+{% sw_extends '@Storefront/storefront/page/product-detail/index.html.twig' %}
+
+{% block page_product_detail_media %}
+    {% if page.product.customFields['diva_product'] == true && page.product.customFields['diva_product_id'] %}
+        <div class="col-lg-7 product-detail-media">
+            {% sw_include '@TeamblauCrystalDesignConfiguratorIntegration/storefront/component/teamblau/tb-product-detail-media-configurator.html.twig' %}
+        </div>
+    {% else %}
+        {{ parent() }}
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,11 @@
+{% sw_extends '@Storefront/storefront/base.html.twig' %}
+
+{% block base_body_script %}
+    {% set divaVersion = config('TeamblauCrystalDesignConfiguratorIntegration.config.divaVersion') %}
+
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/react@17/umd/react.production.min.js"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/react-dom@17/umd/react-dom.production.min.js"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@crystaldesign/diva-core@{{ divaVersion }}/build/umd/diva-core.umd.min.js"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@crystaldesign/diva-web-planner-react@{{ divaVersion }}/build/umd/diva-web-planner-react.umd.min.js"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@crystaldesign/content-box@{{ divaVersion }}/build/umd/content-box.umd.min.js"></script>
+{% endblock %}
