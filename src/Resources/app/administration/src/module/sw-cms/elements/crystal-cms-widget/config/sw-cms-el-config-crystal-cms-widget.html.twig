@@ -2,16 +2,16 @@
     <div class="sw-cms-el-config-crystal-cms-widget">
         <sw-text-field type="text"
                         :label="$tc('teamblau-cms.elements.crystalCmsWidget.identifier')"
-                        v-model="element.config.identifier.value">
+                        v-model:value="element.config.identifier.value">
         </sw-text-field>
         <sw-text-field type="text"
                         :label="$tc('teamblau-cms.elements.crystalCmsWidget.type')"
                         required="true"
-                        v-model="element.config.type.value">
+                        v-model:value="element.config.type.value">
         </sw-text-field>
         <sw-text-field type="json"
                         :label="$tc('teamblau-cms.elements.crystalCmsWidget.parameters')"
-                        v-model="element.config.parameters.value">
+                        v-model:value="element.config.parameters.value">
         </sw-text-field>
     </div>
 {% endblock %}

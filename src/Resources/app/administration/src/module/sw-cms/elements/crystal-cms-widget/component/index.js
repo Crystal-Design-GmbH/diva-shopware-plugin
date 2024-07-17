@@ -18,5 +18,11 @@ Component.register('sw-cms-el-crystal-cms-widget', {
             this.initElementConfig('crystal-cms-widget');
             this.initElementData('crystal-cms-widget');
         }
+    },
+
+    computed: {
+        assetFilter() {
+            return Shopware.Filter.getByName('asset');
+        },
     }
 });

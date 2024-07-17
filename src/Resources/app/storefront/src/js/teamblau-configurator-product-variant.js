@@ -11,7 +11,7 @@ export default class ConfiguratorIntegration extends Plugin {
         const parent = document.getElementById('framework');
 
         const organizationId = parent.getAttribute('data-organization-id');
-        const shopLanguage = parent.getAttribute('data-language');
+        let shopLanguage = parent.getAttribute('data-language');
         const identifier = parent.getAttribute('data-identifier');
         const divaProductId = parent.getAttribute('data-diva-product-id');
 
