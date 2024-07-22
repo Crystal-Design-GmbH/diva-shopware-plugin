@@ -104,11 +104,12 @@ export default class ConfiguratorIntegration extends Plugin {
             form.appendChild(divaBuyBtn);
             diva.appendChild(form);
 
-            window.PluginManager.initializePlugins();
-            document.getElementById("divaBuyBtn").click();
+            window.PluginManager.initializePlugin('AddToCart', '[data-add-to-cart]').then(() => {
+                document.getElementById("divaBuyBtn").click();
 
-            // close configurator after adding product to cart
-            diva.invokeEvent('onFullscreenClose');
+                // close configurator after adding product to cart
+                parent.removeChild(diva);
+            });
         });
     }
 }

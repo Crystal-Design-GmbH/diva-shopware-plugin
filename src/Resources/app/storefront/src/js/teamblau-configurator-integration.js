@@ -123,8 +123,9 @@ export default class ConfiguratorIntegration extends Plugin {
                 if (updateLineItem != null) {
                     document.getElementById("divaForm").submit();
                 } else {
-                    window.PluginManager.initializePlugins();
-                    document.getElementById("divaBuyBtn").click();
+                    window.PluginManager.initializePlugin('AddToCart', '[data-add-to-cart]').then(() => {
+                        document.getElementById("divaBuyBtn").click();
+                    });
                 }
 
                 // close configurator after adding product to cart

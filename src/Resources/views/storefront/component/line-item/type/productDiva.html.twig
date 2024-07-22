@@ -21,8 +21,8 @@
 
 {% block component_line_item_type_product_diva %}
     {% set salesChannelCustomFields = context.salesChannel.customFields %}
-    {% set organizationId = salesChannelCustomFields.crystal_design_organization_id %}
-    {% set identifier = salesChannelCustomFields.crystal_design_idenitifier %}
+    {% set organizationId = salesChannelCustomFields.diva_organization_id %}
+    {% set identifier = salesChannelCustomFields.diva_idenitifier %}
 
     {% set isoCode = page.header.activeLanguage.translationCode.code|lower|split('-') %}
     {% set language = isoCode[0] %}
