@@ -108,7 +108,7 @@ export default class ConfiguratorIntegration extends Plugin {
                 document.getElementById("divaBuyBtn").click();
 
                 // close configurator after adding product to cart
-                parent.removeChild(diva);
+                diva.invokeEvent('onFullscreenClose');
             });
         });
     }
