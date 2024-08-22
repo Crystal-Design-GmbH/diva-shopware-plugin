@@ -1,6 +1,6 @@
 import Plugin from 'src/plugin-system/plugin.class';
 
-export default class ConfiguratorIntegration extends Plugin {
+export default class ProductDetailConfigurator extends Plugin {
     init() {
         this._divaScript();
 	}
@@ -25,12 +25,13 @@ export default class ConfiguratorIntegration extends Plugin {
         //Base configuration parameters
         diva.organizationId = organizationId;
         diva.identifier = identifier;
+        diva.defaultApiConfig = { baseUrl: 'https://api-dev.diva-portal.com' };
 
         //Set to current language of shop
         diva.language = shopLanguage;
 
         //diva is initialized as a content box, which displays the product information of the given productId
-        diva.currentComponent = { type: 'CONTENTBOX', parameters: { productId: divaProductId} };
+        diva.currentComponent = { type: 'PRODUCTDETAILPAGE', parameters: { id: divaProductId} };
 
         parent.appendChild(diva);
 
@@ -38,6 +39,7 @@ export default class ConfiguratorIntegration extends Plugin {
         diva.addEventListener('onAddToBasket', (data) => {
             console.log('Added with Diva Nr ' + data.detail.DivaNr);
             console.log(data.detail);
+            diva.invokeEvent('onFullscreenClose');
         });
 
         //A configuration is saved and should be added to a whishlist (optional)
