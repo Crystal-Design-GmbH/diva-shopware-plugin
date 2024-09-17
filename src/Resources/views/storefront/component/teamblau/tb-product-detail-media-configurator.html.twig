@@ -14,7 +14,7 @@
             data-tb-product-detail-configurator
             data-organization-id = {{ organizationId }}
             data-identifier = {{ identifier }}
-            {% if defaultApiConfig != null %}data-defaultapiconfig = '{"baseUrl":"{{ defaultApiConfig }}"}'{% endif %}
+            data-defaultapiconfig = {{ defaultApiConfig }}
             data-language = {{ language }}
             data-diva-product-id = {{ page.product.customFields['diva_product_id'] }}>
         </div>
