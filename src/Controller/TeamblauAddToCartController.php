@@ -3,6 +3,7 @@
 namespace Teamblau\TeamblauCrystalDesignConfiguratorIntegration\Controller;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
 use Psr\Container\NotFoundExceptionInterface;
@@ -68,7 +69,7 @@ class TeamblauAddToCartController extends StorefrontController
         });
     }
 
-    private function getDivaBasket($divaNr, $documentVersion): mixed
+    private function getDivaBasket($divaNr, $documentVersion, $context): mixed
     {
         $fields = 'DivaNrVersion,DocumentVersion,ProductImage,TotalPrice,SetName,PDFDocumentURL';
         $fields = urlencode($fields);
@@ -78,9 +79,25 @@ class TeamblauAddToCartController extends StorefrontController
 
         $apiKey = $this->systemConfigService->get('TeamblauCrystalDesignConfiguratorIntegration.config.apiKey');
 
-        $lineItem = $client->request('GET', 'https://api.diva-portal.com/basket/baskets/' . $divaNr . '?version=' . $documentVersion . '&fields={' . $fields . '}', [
-            'headers' => ['X-API-KEY' => $apiKey]
-        ]);
+        if (array_key_exists('diva_default_api_config', $context->getSalesChannel()->getCustomFields())) {
+            $divaDefaultApiConfig = $context->getSalesChannel()->getCustomFields()['diva_default_api_config'];
+
+            if (preg_match("/baseUrl:\s*'([^']+)'/", $divaDefaultApiConfig, $matches)) {
+                $defaultApiConfig = $matches[1];
+            } else {
+                return null;
+            }
+        } else {
+            return null;
+        }
+
+        try {
+            $lineItem = $client->request('GET', $defaultApiConfig . '/basket/baskets/' . $divaNr . '?version=' . $documentVersion . '&fields={' . $fields . '}', [
+                'headers' => ['X-API-KEY' => $apiKey]
+            ]);
+        } catch (ClientException $exception) {
+            return null;
+        }
 
         $lineItemContents = $lineItem->getBody()->getContents();
 
