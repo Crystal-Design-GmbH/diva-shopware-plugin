@@ -79,20 +79,14 @@ class TeamblauAddToCartController extends StorefrontController
 
         $apiKey = $this->systemConfigService->get('TeamblauCrystalDesignConfiguratorIntegration.config.apiKey');
 
-        if (array_key_exists('diva_default_api_config', $context->getSalesChannel()->getCustomFields())) {
-            $divaDefaultApiConfig = $context->getSalesChannel()->getCustomFields()['diva_default_api_config'];
-
-            if (preg_match("/baseUrl:\s*'([^']+)'/", $divaDefaultApiConfig, $matches)) {
-                $defaultApiConfig = $matches[1];
-            } else {
-                return null;
-            }
+        if (array_key_exists('diva_base_url', $context->getSalesChannel()->getCustomFields())) {
+            $divaBaseUrl = $context->getSalesChannel()->getCustomFields()['diva_base_url'];
         } else {
             return null;
         }
 
         try {
-            $lineItem = $client->request('GET', $defaultApiConfig . '/basket/baskets/' . $divaNr . '?version=' . $documentVersion . '&fields={' . $fields . '}', [
+            $lineItem = $client->request('GET', $divaBaseUrl . '/basket/baskets/' . $divaNr . '?version=' . $documentVersion . '&fields={' . $fields . '}', [
                 'headers' => ['X-API-KEY' => $apiKey]
             ]);
         } catch (ClientException $exception) {

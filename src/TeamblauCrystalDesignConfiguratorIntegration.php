@@ -86,6 +86,18 @@ class TeamblauCrystalDesignConfiguratorIntegration extends Plugin
                             ],
                             'customFieldPosition' => 3
                         ],
+                    ], [
+                        'id' => md5('diva_base_url'),
+                        'name' => 'diva_base_url',
+                        'type' => CustomFieldTypes::TEXT,
+                        'config' => [
+                            'label' => [
+                                'de-DE' => 'Base Url',
+                                'en-GB' => 'Base Url',
+                                'it-IT' => 'Base Url'
+                            ],
+                            'customFieldPosition' => 4
+                        ],
                     ]
                 ],
                 'relations' => [

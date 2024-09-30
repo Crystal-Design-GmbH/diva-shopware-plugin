@@ -15,6 +15,7 @@ export default class ProductDetailConfigurator extends Plugin {
         const identifier = parent.getAttribute('data-identifier');
         const divaProductId = parent.getAttribute('data-diva-product-id');
         const dataDefaultApiConfig = parent.getAttribute('data-defaultapiconfig');
+        const dataBaseUrl = parent.getAttribute('data-base-url');
 
         if (shopLanguage === 'de' || shopLanguage === 'it' || shopLanguage === 'en' || shopLanguage === 'fr') {
             //use the configurator with the shop language
@@ -26,8 +27,8 @@ export default class ProductDetailConfigurator extends Plugin {
         //Base configuration parameters
         diva.organizationId = organizationId;
         diva.identifier = identifier;
-        if (dataDefaultApiConfig != null) {
-            diva.defaultApiConfig = dataDefaultApiConfig;
+        if (dataBaseUrl != null) {
+            diva.defaultApiConfig = { baseUrl: dataBaseUrl };
         } else {
             diva.defaultApiConfig = { baseUrl: 'https://api-dev.diva-portal.com' };
         }
