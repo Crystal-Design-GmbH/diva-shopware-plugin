@@ -66,9 +66,12 @@ export default class ProductDetailConfigurator extends Plugin {
         });
 
         //externally tell diva to open the configurator
-        document.getElementById('openConfig').addEventListener('click', event => {
-            diva.invokeEvent('openConfiguratorOverlay');
-        });
+        const openConfigElement = document.getElementById('openConfig');
+        if (openConfigElement) {
+            openConfigElement.addEventListener('click', event => {
+                diva.invokeEvent('openConfiguratorOverlay');
+            });
+        }
 
         //A configuration is saved and should be added to the basket
         diva.addEventListener('onAddToBasket', (data) => {
