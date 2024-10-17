@@ -152,7 +152,7 @@ class TeamblauAddToCartController extends StorefrontController
 
         try {
             $count += 1;
-            $lineItem = $this->getDivaBasket($divaNr, $documentVersion);
+            $lineItem = $this->getDivaBasket($divaNr, $documentVersion, $context);
 
             $lineItemsDivaTB = $this->newLineItem($lineItem, $context);
 
